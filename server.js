@@ -27,6 +27,15 @@ const urlSchema = new mongoose.Schema({
 
 const Url = mongoose.model('Url', urlSchema);
 
+app.get('/urls', async (req, res) => {
+  try {
+      const urls = await Url.find();
+      res.json(urls);
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+});
+
 app.get('/:shortUrl', async (req, res) => {
   const url = await Url.findOne({ shortUrl: req.params.shortUrl });
   if (url) {
@@ -46,6 +55,7 @@ app.post('/shorten', async (req, res) => {
   await url.save();
   res.json(url);
 });
+
 
 console.log('Listening on port ' + 5000)
 app.listen(process.env.PORT || 5000);
