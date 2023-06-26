@@ -1,7 +1,10 @@
 version: '3'
+
 services:
   grabo_backend:
     image: moritz/node-backend
+    container_name: grabo_backend
     ports:
       - 1082:5000
-    container_name: grabo_backend
+    restart: unless-stopped
+
