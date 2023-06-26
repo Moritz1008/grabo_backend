@@ -18,6 +18,7 @@ mongoose.connect(process.env.DATABASE_URL, {
 const urlSchema = new mongoose.Schema({
   originalUrl: String,
   shortUrl: String,
+  // isFav: Boolean,
 });
 
 const Url = mongoose.model('Url', urlSchema);
@@ -55,6 +56,7 @@ app.post('/shorten', async (req, res) => {
     url = new Url({
       originalUrl: originalUrl,
       shortUrl: shortUrl,
+      // isFav: false,
     });
 
     await url.save();
