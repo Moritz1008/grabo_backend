@@ -1,21 +1,16 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const dotenv = require('dotenv');
-dotenv.config();
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// mongoose.connect(process.env.DATABASE_URL, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-mongoose.connect("mongodb+srv://grabo_db:shadowpass@cluster0.toy7lbu.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -57,5 +52,5 @@ app.post('/shorten', async (req, res) => {
 });
 
 
-console.log('Listening on port ' + 5000)
+console.log('Listening on port ' + process.env.PORT)
 app.listen(process.env.PORT || 5000);

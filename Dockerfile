@@ -10,4 +10,8 @@ COPY . .
 
 EXPOSE 5000
 
+ENV DATABASE_URL=mongodb+srv://grabo_db:shadowpass@cluster0.toy7lbu.mongodb.net/?retryWrites=true&w=majority
+
+ENV PORT=5000
+
 CMD [ "node", "server.js" ]
