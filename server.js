@@ -25,10 +25,10 @@ const Url = mongoose.model('Url', urlSchema);
 
 app.get('/urls', async (req, res) => {
   try {
-      const urls = await Url.find();
-      res.json(urls);
+    const urls = await Url.find();
+    res.json(urls);
   } catch (err) {
-      res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -45,20 +45,20 @@ app.post('/shorten', async (req, res) => {
   try {
     const originalUrl = req.body.originalUrl;
     let shortUrl = Math.random().toString(36).substring(process.env.URLLENGTH);
-
+    
     let url = await Url.findOne({ shortUrl: shortUrl });
-
+    
     while (url) {
       shortUrl = Math.random().toString(36).substring(7);
       url = await Url.findOne({ shortUrl: shortUrl });
     }
-
+    
     url = new Url({
       originalUrl: originalUrl,
       shortUrl: shortUrl,
       // isFav: false,
     });
-
+    
     await url.save();
     res.json(url);
   } catch (err) {
