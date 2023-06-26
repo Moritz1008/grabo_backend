@@ -41,14 +41,27 @@ app.get('/:shortUrl', async (req, res) => {
 });
 
 app.post('/shorten', async (req, res) => {
-  const originalUrl = req.body.originalUrl;
-  const shortUrl = Math.random().toString(36).substring(7);
-  const url = new Url({
-    originalUrl: originalUrl,
-    shortUrl: shortUrl,
-  });
-  await url.save();
-  res.json(url);
+  try {
+    const originalUrl = req.body.originalUrl;
+    let shortUrl = Math.random().toString(36).substring(process.env.URLLENGTH);
+
+    let url = await Url.findOne({ shortUrl: shortUrl });
+
+    while (url) {
+      shortUrl = Math.random().toString(36).substring(7);
+      url = await Url.findOne({ shortUrl: shortUrl });
+    }
+
+    url = new Url({
+      originalUrl: originalUrl,
+      shortUrl: shortUrl,
+    });
+
+    await url.save();
+    res.json(url);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 

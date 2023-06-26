@@ -14,4 +14,6 @@ ENV DATABASE_URL=mongodb+srv://grabo_db:shadowpass@cluster0.toy7lbu.mongodb.net/
 
 ENV PORT=5000
 
+ENV URLLENGTH=7
+
 CMD [ "node", "server.js" ]
