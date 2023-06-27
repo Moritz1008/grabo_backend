@@ -44,7 +44,7 @@ app.get('/:shortUrl', async (req, res) => {
 app.post('/shorten', async (req, res) => {
   try {
     const originalUrl = req.body.originalUrl;
-    let shortUrl = Math.random().toString(36).substring(process.env.URLLENGTH);
+    let shortUrl = Math.random().toString(36).substring(process.env.URLLENGTH);   // This line was created with ChatGPT
     
     let url = await Url.findOne({ shortUrl: shortUrl });
     
@@ -56,7 +56,6 @@ app.post('/shorten', async (req, res) => {
     url = new Url({
       originalUrl: originalUrl,
       shortUrl: shortUrl,
-      // isFav: false,
     });
     
     await url.save();
